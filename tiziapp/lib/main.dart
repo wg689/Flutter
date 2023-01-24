@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart' hide Page;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'chapter2/2.2/router.dart';
+import 'chapter2/getState.dart';
 import 'common.dart';
 import 'routes.dart';
 // import 'chapter14/draw_main.dart' as custom;
@@ -72,8 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('第一个flutter应用'),
               children: _generateItem(context, [
                 Page('计数器', const CounterRoute(), withScaffold: false),
-                Page('路由传值', const RouterTestRoute(), withScaffold: false),
+                Page('路由传值', const RouterTestRoute(), withScaffold: true),
                 Page('Cupertino Demo', const CupertinoTestRoute(),
+                    withScaffold: false),
+                Page('子树中获取State对象', const GetStateObjectRoute(),
                     withScaffold: false),
                 Page('state 的生命周期', const StateLifeCycleTest()),
               ]),
