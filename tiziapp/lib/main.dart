@@ -1,8 +1,15 @@
 import 'dart:async';
 import 'package:flutter/material.dart' hide Page;
+import 'package:tiziapp/chapter3/button.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'chapter2/2.2/router.dart';
 import 'chapter2/getState.dart';
+import 'chapter3/form.dart';
+import 'chapter3/image_icon.dart';
+import 'chapter3/progress.dart';
+import 'chapter3/switch_checkbox.dart';
+import 'chapter3/text.dart';
+import 'chapter3/textfield.dart';
 import 'common.dart';
 import 'routes.dart';
 // import 'chapter14/draw_main.dart' as custom;
@@ -81,6 +88,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page('state 的生命周期', const StateLifeCycleTest()),
               ]),
             ),
+            ExpansionTile(
+              title: const Text('基础组件'),
+              children: _generateItem(context, [
+                Page('按钮', const ButtonRoute()),
+                Page("Form", const FormTestRoute(), showLog: false),
+                Page("图片伸缩", const ImageAndIconRoute()),
+                Page("复选框", const SwitchAndCheckBoxRoute()),
+                Page("进度条", const ProgressRoute()),
+                Page("文本框", const TextRoute()),
+                Page("文本输入框", const FocusTestRoute()),
+              ]),
+            )
           ],
         ));
   }
