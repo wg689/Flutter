@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart' hide Page;
 import 'package:tiziapp/chapter3/button.dart';
+import 'package:tiziapp/chapter4/afterlayout.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'chapter2/2.2/router.dart';
 import 'chapter2/getState.dart';
@@ -10,6 +11,13 @@ import 'chapter3/progress.dart';
 import 'chapter3/switch_checkbox.dart';
 import 'chapter3/text.dart';
 import 'chapter3/textfield.dart';
+import 'chapter4/align.dart';
+import 'chapter4/constraints.dart';
+import 'chapter4/layoutbuilder.dart';
+import 'chapter4/row_column.dart';
+import 'chapter4/stack.dart';
+import 'chapter4/table.dart';
+import 'chapter4/wrap_and_flow.dart';
 import 'common.dart';
 import 'routes.dart';
 // import 'chapter14/draw_main.dart' as custom;
@@ -98,6 +106,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("进度条", const ProgressRoute()),
                 Page("文本框", const TextRoute()),
                 Page("文本输入框", const FocusTestRoute()),
+              ]),
+            ),
+            ExpansionTile(
+              title: const Text("布局类组件"),
+              children: _generateItem(context, [
+                Page(
+                  "约束",
+                  const SizeConstraintsRoute(),
+                  withScaffold: false,
+                ),
+                Page("AfterLayout", const AfterLayoutRoute()),
+                Page("流式布局", const WrapAndFlowRoute()),
+                Page("Column", const CenterColumnRoute()),
+                Page("层叠布局", const StackRoute()),
+                Page("表格布局", const TableRoute()),
+                Page("对齐和相对定位", const AlignRoute()),
+                Page("LayoutBuilder", const LayoutBuilderRoute(),
+                    padding: false),
               ]),
             )
           ],
