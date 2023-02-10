@@ -5,7 +5,7 @@ class ClipRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Image avatar = Image.asset("imgs/avtar.png", width: 60.0);
+    Image avatar = Image.asset("imgs/avatar.png", width: 60.0);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -37,7 +37,7 @@ class ClipRoute extends StatelessWidget {
           ),
         ),
         DecoratedBox(
-          decoration: const BoxDecoration(color: Colors.red),
+          decoration: const BoxDecoration(color: Colors.blue),
           child: MyClipRect(
             child: avatar,
           ),

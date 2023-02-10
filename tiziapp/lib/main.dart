@@ -18,6 +18,13 @@ import 'chapter4/row_column.dart';
 import 'chapter4/stack.dart';
 import 'chapter4/table.dart';
 import 'chapter4/wrap_and_flow.dart';
+import 'chapter5/clip.dart';
+import 'chapter5/container.dart';
+import 'chapter5/decoratedbox.dart';
+import 'chapter5/fittedbox.dart';
+import 'chapter5/padding.dart';
+import 'chapter5/scaffold.dart';
+import 'chapter5/transform.dart';
 import 'common.dart';
 import 'routes.dart';
 // import 'chapter14/draw_main.dart' as custom;
@@ -125,7 +132,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 Page("LayoutBuilder", const LayoutBuilderRoute(),
                     padding: false),
               ]),
-            )
+            ),
+            ExpansionTile(
+              title: const Text("容器类组件"),
+              children: _generateItem(context, [
+                Page("裁剪", const ClipRoute()),
+                Page("Containiner", const ContainerRoute()),
+                Page("变换", const TranformRoute()),
+                Page("DecoratedBox", const DecoratedBoxRoute()),
+                Page("FittedBox", const FittedBoxRoute()),
+                Page("填充Padding", const PaddingTestRoute()),
+                Page("Scaffold、TabBar、底部导航", const ScaffoldRoute()),
+              ]),
+            ),
           ],
         ));
   }
