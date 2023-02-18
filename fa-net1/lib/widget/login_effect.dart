@@ -33,7 +33,6 @@ class _LoginEffectState extends State<LoginEffect> {
   }
 
   _image(bool left) {
-    print("左右$left 保护${widget.protect}");
     var headLeft = widget.protect
         ? 'images/head_left_protect.png'
         : 'images/head_left.png';

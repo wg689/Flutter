@@ -49,14 +49,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 prottect = focus;
               });
             }),
-            LoginInput("密码", "请再次输入密码", obscureText: true, onChanged: (text) {
-              rePassword = text;
-              checkInput();
-            }, focusChanged: (focus) {
-              this.setState(() {
-                prottect = focus;
-              });
-            }),
             LoginInput(
               "慕课网ID",
               "请输入你的慕课网用户ID",

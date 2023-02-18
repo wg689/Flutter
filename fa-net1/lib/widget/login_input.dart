@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _LoginInputState extends State<LoginInput> {
     super.initState();
     _focusNode.addListener(() {
       print("has focus: ${_focusNode.hasFocus}");
-      if (widget.focusChanged != null) {
+      if (widget.focusChanged = null) {
         widget.focusChanged(_focusNode.hasFocus);
       }
     });
