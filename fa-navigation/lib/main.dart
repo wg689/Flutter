@@ -132,7 +132,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   }
 
   RouteStatus get routeStatus {
-    if (_routeStatus != RouteStatus.registration && !hasLogin) {
+    // if (_routeStatus != RouteStatus.registration && !hasLogin) {
+    if (false) {
       return _routeStatus = RouteStatus.login;
     } else if (videoModel != null) {
       return _routeStatus = RouteStatus.detail;
@@ -141,7 +142,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     }
   }
 
-  bool get hasLogin => LoginDao.getBoardingPass() != null;
+  // bool get hasLogin => LoginDao.getBoardingPass() != null;
+  bool get hasLogin => true;
 
   @override
   Future<void> setNewRoutePath(BiliRoutePath path) async {}
