@@ -60,15 +60,14 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
         this.videoModel = args['videoMo'];
       }
       notifyListeners();
-    })
+    }));
 
-        // HiNet.getInstance().setErrorInterceptor((error) {
-        // if (error is NeedLogin) {
-        //   HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
-        //   HiNavigator.getInstance().onJummpTo(RouteStatus.login);
-        // }
-        // });
-        );
+    HiNet.getInstance().setErrorInterceptor((error) {
+      if (error is NeedLogin) {
+        HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
+        HiNavigator.getInstance().onJummpTo(RouteStatus.login);
+      }
+    });
   }
 
   RouteStatus _routeStatus = RouteStatus.home;
@@ -142,6 +141,10 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   @override
   // TODO: implement navigatorKey
   GlobalKey<NavigatorState> get navigatorKey => throw UnimplementedError();
+
+  // @override
+  // // TODO: implement navigatorKey
+  // GlobalKey<NavigatorState> get navigatorKey => throw UnimplementedError();
 }
 
 class BiliRoutePath {
