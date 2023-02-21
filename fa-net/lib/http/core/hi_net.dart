@@ -1,3 +1,4 @@
+import 'package:flutter_bili_app/http/core/HiErrorInterceptor.dart';
 import 'package:flutter_bili_app/http/core/dio_adapter.dart';
 
 import '../request/base_request.dart';
@@ -13,6 +14,8 @@ class HiNet {
   HiNet._();
 
   static HiNet _instance;
+
+  HiErrorInterceptor _hiErrorInterceptor;
 
   static HiNet getInstance() {
     if (_instance == null) {
@@ -41,26 +44,36 @@ class HiNet {
     var result = response.data;
     printLog(result);
     var status = response.statusCode;
+    var hiError;
     switch (status) {
       case 200:
         return result;
         break;
       case 401:
-        throw NeedLogin();
+        hiError = NeedLogin();
         break;
       case 403:
-        throw NeedAuth(result.toString(), data: result);
+        hiError = NeedAuth(result.toString(), data: result);
         break;
       default:
-        throw HiNetError(status, result.toString(), data: result);
+        hiError = HiNetError(status, result.toString(), data: result);
         break;
     }
+
+    if (_hiErrorInterceptor != null) {
+      _hiErrorInterceptor(hiError);
+    }
+    throw hiError;
   }
 
   Future<HiNetResponse<T>> send<T>(BaseRequest request) async {
     ///使用Dio发送请求
     HiNetAdapter adapter = DioAdapter();
     return adapter.send(request);
+  }
+
+  void setErrorInterceptor(HiErrorInterceptor interceptor) {
+    this._hiErrorInterceptor = interceptor;
   }
 
   void printLog(log) {

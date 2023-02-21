@@ -1,162 +1,151 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/db/hi_cache.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
-import 'package:flutter_bili_app/http/navigator/hi_navigator.dart';
+import 'package:flutter_bili_app/http/dao/login_dao.dart';
+import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/http/request/test_request.dart';
 import 'package:flutter_bili_app/model/owner.dart';
 import 'package:flutter_bili_app/model/result.dart';
-import 'package:flutter_bili_app/page/HomePage.dart';
+import 'package:flutter_bili_app/page/home_page.dart';
+import 'package:flutter_bili_app/page/login_page.dart';
 import 'package:flutter_bili_app/page/registration_page.dart';
 import 'package:flutter_bili_app/page/video_detail_page.dart';
+import 'package:flutter_bili_app/util/color.dart';
+import 'package:flutter_bili_app/util/toast.dart';
 import 'dart:convert';
 
 import 'http/core/hi_net.dart';
+import 'model/video_model';
 
 void main() {
-  runApp(MyApp());
+  runApp(BiliApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class BiliApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  _BiliAppState createState() => _BiliAppState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class BiliRouteDelegate extends RouterDelegate<BiliRoutePath> {}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    HiCache.preInit();
-  }
-
-  void _incrementCounter() async {
-    // TestRequest request = TestRequest();
-    // request.add("aa", "ddd").add("bb", "333").add("requestPrams", "kkkk");
-    // try {
-    //   var result = await HiNet.getInstance().fire(request);
-    //   print(result);
-    // } on NeedAuth catch (e) {
-    //   print(e);
-    // } on NeedLogin catch (e) {
-    //   print(e);
-    // } on HiNetError catch (e) {
-    //   print(e);
-    // }
-    // test();
-    // test1();
-    test2();
-  }
-
-  void test() {
-    const jsonString =
-        "{ \"name\": \"flutter\", \"url\": \"https://coding.imooc.com/class/487.html\" }";
-    //json 转map
-    Map<String, dynamic> jsonMap = jsonDecode(jsonString);
-    print('name:${jsonMap['name']}');
-    print('url:${jsonMap['url']}');
-    //map 转json
-    String json = jsonEncode(jsonMap);
-    print('json:$json');
-  }
+class _BiliAppState extends State<BiliApp> {
+  BiliRouteDelegate _routeDelegate = BiliRouteDelegate();
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ),
-        body:
-            RegistrationPage() // This trailing comma makes auto-formatting nicer for build methods.
-        );
-  }
-
-  void test1() {
-    var ownerMap = {
-      "name": "伊零Onezero11",
-      "face":
-          "http://i2.hdslb.com/bfs/face/1c57a17a7b077ccd19dba58a981a673799b85aef.jpg",
-      "fans": 12
-    };
-    Owner owner = Owner.fromJson(ownerMap);
-    print('name:${owner.name}');
-    print('face:${owner.face}');
-    print('fans:${owner.fans}');
-    // Result.fromJson(json)
-  }
-
-  void test2() {
-    HiCache.getInstance().setString("aa", "1234");
-    var value = HiCache.getInstance().get("aa");
-    print('value:$value');
+    return FutureBuilder<HiCache>(
+        future: HiCache.preInit(),
+        builder: (BuildContext context, AsyncSnapshot<HiCache> snapshot) {
+          var widget = snapshot.connectionState == ConnectionState.done
+              ? Router(routerDelegate: _routeDelegate)
+              : Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+          return MaterialApp(
+            home: widget,
+            theme: ThemeData(primarySwatch: white),
+          );
+        });
   }
 }
 
-class BillRouteDelegate extends RouterDelegate<BillRoutePath>
+class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<BiliRoutePath> {
   final GlobalKey<NavigatorState> navigationKey;
 
-  BillRouteDelegate() : navigationKey = GlobalKey<NavigatorState>();
+  /// 为navigator 设置一个key 必要时候可以通过navigateKey.currentSttae 来获得
+  BiliRouteDelegate() : navigationKey = GlobalKey<NavigatorState>() {
+    HiNavigator.getInstance().registerRouteJump(
+        RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map args}) {
+      _routeStatus = routeStatus;
+      if (routeStatus == RouteStatus.detail) {
+        this.videoModel = args['videoMo'];
+      }
+      notifyListeners();
+    })
+
+        // HiNet.getInstance().setErrorInterceptor((error) {
+        // if (error is NeedLogin) {
+        //   HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
+        //   HiNavigator.getInstance().onJummpTo(RouteStatus.login);
+        // }
+        // });
+        );
+  }
+
+  RouteStatus _routeStatus = RouteStatus.home;
   List<MaterialPage> pages = [];
   VideoModel videoModel;
 
-  @overide
+// 开始
+  @override
   Widget build(BuildContext context) {
-    pages = [
-      pageWrap(HomePage()),
-      if (videoModel != null) pageWrap(VideoDetailPage(videoModel))
-    ];
+    var index = getPageIndex(pages, routeStatus);
+    List<MaterialPage> tempPages = pages;
+    if (index != -1) {
+      tempPages = tempPages.sublist(0, index);
+    }
 
-    return;
+    var page;
+    if (routeStatus == RouteStatus.home) {
+      pages.clear();
+      page = pageWrap(BottomNavigationBar());
+    } else if (routeStatus == RouteStatus.detail) {
+      page = pageWrap(VideoDetailPage(videoModel));
+    } else if (routeStatus == RouteStatus.registration) {
+      page = pageWrap(RegistrationPage());
+    } else if (routeStatus == RouteStatus.login) {
+      page = pageWrap(LoginPage());
+    }
+
+    tempPages = [...tempPages, page];
+    HiNavigator.getInstance().notify(tempPages, pages);
+    pages = tempPages;
+    return WillPopScope(
+      onWillPop: () async => !await navigationKey.currentState.maybePop(),
+      child: Navigator(
+          key: navigationKey,
+          pages: pages,
+          onPopPage: (route, result) {
+            if (route.settings is MaterialPage) {
+              if ((route.settings as MaterialPage).child is LoginPage) {
+                if (!hasLogin) {
+                  showWarnToast("请先登录");
+                  return false;
+                }
+              }
+            }
+            if (!route.didPop(result)) {
+              return false;
+            }
+            var tempPages = [...pages];
+            pages.removeLast();
+            HiNavigator.getInstance().notify(pages, tempPages);
+            return true;
+          }),
+    );
   }
+
+  RouteStatus get routeStatus {
+    if (false) {
+      return _routeStatus = RouteStatus.login;
+    } else if (videoModel != null) {
+      return _routeStatus = RouteStatus.detail;
+    } else {
+      _routeStatus;
+    }
+  }
+
+  bool get hasLogin => true;
+
+  @override
+  Future<void> setNewRoutePath(BiliRoutePath path) async {}
+
+  @override
+  // TODO: implement navigatorKey
+  GlobalKey<NavigatorState> get navigatorKey => throw UnimplementedError();
 }
 
 class BiliRoutePath {
   final String location;
+  BiliRoutePath.home() : location = "/";
+  BiliRoutePath.detail() : location = "/detail";
 }
