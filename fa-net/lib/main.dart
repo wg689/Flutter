@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/db/hi_cache.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
+import 'package:flutter_bili_app/http/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/http/request/test_request.dart';
 import 'package:flutter_bili_app/model/owner.dart';
 import 'package:flutter_bili_app/model/result.dart';
+import 'package:flutter_bili_app/page/HomePage.dart';
 import 'package:flutter_bili_app/page/registration_page.dart';
+import 'package:flutter_bili_app/page/video_detail_page.dart';
 import 'dart:convert';
 
 import 'http/core/hi_net.dart';
@@ -53,6 +56,8 @@ class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
+
+class BiliRouteDelegate extends RouterDelegate<BiliRoutePath> {}
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
@@ -131,4 +136,27 @@ class _MyHomePageState extends State<MyHomePage> {
     var value = HiCache.getInstance().get("aa");
     print('value:$value');
   }
+}
+
+class BillRouteDelegate extends RouterDelegate<BillRoutePath>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin<BiliRoutePath> {
+  final GlobalKey<NavigatorState> navigationKey;
+
+  BillRouteDelegate() : navigationKey = GlobalKey<NavigatorState>();
+  List<MaterialPage> pages = [];
+  VideoModel videoModel;
+
+  @overide
+  Widget build(BuildContext context) {
+    pages = [
+      pageWrap(HomePage()),
+      if (videoModel != null) pageWrap(VideoDetailPage(videoModel))
+    ];
+
+    return;
+  }
+}
+
+class BiliRoutePath {
+  final String location;
 }
