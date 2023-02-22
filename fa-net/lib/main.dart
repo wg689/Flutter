@@ -31,6 +31,8 @@ class _BiliAppState extends State<BiliApp> {
 
   @override
   Widget build(BuildContext context) {
+    print('widget666');
+
     return FutureBuilder<HiCache>(
         future: HiCache.preInit(),
         builder: (BuildContext context, AsyncSnapshot<HiCache> snapshot) {
@@ -39,6 +41,7 @@ class _BiliAppState extends State<BiliApp> {
               : Scaffold(
                   body: Center(child: CircularProgressIndicator()),
                 );
+          print("widget666:$widget");
           return MaterialApp(
             home: widget,
             theme: ThemeData(primarySwatch: white),
@@ -62,12 +65,12 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
       notifyListeners();
     }));
 
-    HiNet.getInstance().setErrorInterceptor((error) {
-      if (error is NeedLogin) {
-        HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
-        HiNavigator.getInstance().onJummpTo(RouteStatus.login);
-      }
-    });
+    // HiNet.getInstance().setErrorInterceptor((error) {
+    //   if (error is NeedLogin) {
+    //     HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
+    //     HiNavigator.getInstance().onJummpTo(RouteStatus.login);
+    //   }
+    // });
   }
 
   RouteStatus _routeStatus = RouteStatus.home;
@@ -129,7 +132,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     } else if (videoModel != null) {
       return _routeStatus = RouteStatus.detail;
     } else {
-      _routeStatus;
+      return _routeStatus;
     }
   }
 
@@ -140,11 +143,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
 
   @override
   // TODO: implement navigatorKey
-  GlobalKey<NavigatorState> get navigatorKey => throw UnimplementedError();
-
-  // @override
-  // // TODO: implement navigatorKey
-  // GlobalKey<NavigatorState> get navigatorKey => throw UnimplementedError();
+  GlobalKey<NavigatorState> get navigatorKey => navigatorKey;
 }
 
 class BiliRoutePath {
