@@ -31,7 +31,6 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       _hasBuild = true;
     }
     return Scaffold(
-      appBar: AppBar(),
       body: PageView(
         controller: _controller,
         children: _pages,
