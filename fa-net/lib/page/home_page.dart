@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/widget/appbar.dart';
-import 'package:flutter_bili_app/model/video_model';
+import 'package:flutter_bili_app/model/video_model.dart';
 
 class HomePage extends StatefulWidget {
   final ValueChanged<VideoModel> onJumpToDetail;
