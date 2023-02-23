@@ -1,30 +1,24 @@
-import 'dart:html';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
+///解放生产力：在线json转dart https://www.devio.org/io/tools/json-to-dart/
 class HomeMo {
   List<BannerMo> bannerList;
-  List<Category> categoryList;
+  List<CategoryMo> categoryList;
   List<VideoMo> videoList;
 
   HomeMo({this.bannerList, this.categoryList, this.videoList});
 
   HomeMo.fromJson(Map<String, dynamic> json) {
-    if (json["bannerList" != null]) {
+    if (json['bannerList'] != null) {
       bannerList = new List<BannerMo>.empty(growable: true);
-      json["bannerList"].forEach((v) {
+      json['bannerList'].forEach((v) {
         bannerList.add(new BannerMo.fromJson(v));
       });
     }
-
     if (json['categoryList'] != null) {
       categoryList = new List<CategoryMo>.empty(growable: true);
       json['categoryList'].forEach((v) {
         categoryList.add(new CategoryMo.fromJson(v));
       });
     }
-
     if (json['videoList'] != null) {
       videoList = new List<VideoMo>.empty(growable: true);
       json['videoList'].forEach((v) {

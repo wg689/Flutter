@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/page/home_tab_page.dart';
@@ -5,17 +6,21 @@ import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/widget/appbar.dart';
 import 'package:flutter_bili_app/model/video_model.dart';
 import 'package:underline_indicator/underline_indicator.dart';
+import 'package:flutter_bili_app/http/core/hi_state.dart';
+import 'package:flutter_bili_app/model/home_mo.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _HomePageState extends HiState<HomePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   var listener;
   TabController _controller;
-  var tabs = ["推荐", "热门", "追播", "影视", "日常", "综合", "手机游戏", "短片.手书.配音"];
+  // var tabs = ["推荐", "热门", "追播", "影视", "日常", "综合", "手机游戏", "短片.手书.配音"];
+  List<CategoryMo> categoryList = [];
+  List<BannerMo> bannerList = [];
 
   @override
   void initState() {
