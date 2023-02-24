@@ -25,7 +25,7 @@ class _HomePageState extends HiState<HomePage>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: tabs.length, vsync: this);
+    _controller = TabController(length: categoryList.length, vsync: this);
 
     HiNavigator.getInstance().addListener(this.listener = (current, pre) {
       print('home:current:${current.page}');
@@ -60,8 +60,11 @@ class _HomePageState extends HiState<HomePage>
           Flexible(
               child: TabBarView(
                   controller: _controller,
-                  children: tabs.map((tab) {
-                    return HomeTabPage(name: tab);
+                  children: categoryList.map((tab) {
+                    return HomeTabPage(
+                      categoryName: tab.name,
+                      bannerList: tab.name == '推荐' ? bannerList : null,
+                    );
                   }).toList()))
         ],
       ),
@@ -92,4 +95,12 @@ class _HomePageState extends HiState<HomePage>
           );
         }).toList());
   }
+
+
+  void loadData() async {
+    try {
+      hom
+    }
+  }
+
 }
