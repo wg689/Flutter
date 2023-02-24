@@ -64,9 +64,9 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     HiNet.getInstance().setErrorInterceptor((error) {
       if (error is NeedLogin) {
         //清空失效的登录令牌
-        HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
-        //拉起登录
-        HiNavigator.getInstance().onJumpTo(RouteStatus.login);
+        // HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
+        // //拉起登录
+        // HiNavigator.getInstance().onJumpTo(RouteStatus.login);
       }
     });
   }
@@ -132,7 +132,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   }
 
   RouteStatus get routeStatus {
-    if (_routeStatus != RouteStatus.registration && !hasLogin) {
+    if (false) {
+      // if (_routeStatus != RouteStatus.registration && !hasLogin) {
       return _routeStatus = RouteStatus.login;
     } else if (videoModel != null) {
       return _routeStatus = RouteStatus.detail;
