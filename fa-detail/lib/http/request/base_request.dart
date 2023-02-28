@@ -55,7 +55,8 @@ abstract class BaseRequest {
   Map<String, dynamic> header = {
     'course-flag': 'fa',
     //访问令牌，在课程公告获取
-    "auth-token": "MjAyMC0wNi0yMyAwMzoyNTowMQ==fa",
+    // "auth-token": "MjAyMC0wNi0yMyAwMzoyNTowMQ==fa",
+    "auth-token": "ZmEtMjAyMS0wNC0xMiAyMToyMjoyMC1mYQ==fa",
   };
 
   ///添加header

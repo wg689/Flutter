@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide NavigationBar;
 import 'package:flutter_bili_app/core/hi_state.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/home_dao.dart';
@@ -74,7 +74,7 @@ class _HomePageState extends HiState<HomePage>
       case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
-      //fix Android压后台首页状态栏字体颜色变白，详情页状态栏字体变黑问题
+        //fix Android压后台首页状态栏字体颜色变白，详情页状态栏字体变黑问题
         changeStatusBar();
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
