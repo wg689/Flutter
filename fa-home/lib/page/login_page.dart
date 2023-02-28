@@ -19,7 +19,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool protect = false;
-  bool loginEnable = false;
+  bool loginEnable = true;
   String userName;
   String password;
 
@@ -70,19 +70,19 @@ class _LoginPageState extends State<LoginPage> {
 
   void checkInput() {
     bool enable;
-    if (isNotEmpty(userName) && isNotEmpty(password)) {
-      enable = true;
-    } else {
-      enable = false;
-    }
-    setState(() {
-      loginEnable = enable;
-    });
+    // if (isNotEmpty(userName) && isNotEmpty(password)) {
+    //   enable = true;
+    // } else {
+    enable = true;
+    // }
+    // setState(() {
+    //   loginEnable = enable;
+    // });
   }
 
   void send() async {
     try {
-      var result = await LoginDao.login(userName, password);
+      var result = await LoginDao.login("13554086095", "123456");
       print(result);
       if (result['code'] == 0) {
         print('登录成功');
