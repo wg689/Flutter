@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide NavigationBar;
 import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
 import 'package:flutter_bili_app/widget/appbar.dart';
