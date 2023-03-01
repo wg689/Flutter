@@ -1,10 +1,9 @@
-import 'package:flutter_bili_app/http/core/HiErrorInterceptor.dart';
 import 'package:flutter_bili_app/http/core/dio_adapter.dart';
 
 import '../request/base_request.dart';
 import 'hi_error.dart';
+import 'HiErrorInterceptor.dart';
 import 'hi_net_adapter.dart';
-import 'mock_adapter.dart';
 
 ///1.支持网络库插拔设计，且不干扰业务层
 ///2.基于配置请求请求，简洁易用
@@ -13,9 +12,8 @@ import 'mock_adapter.dart';
 class HiNet {
   HiNet._();
 
-  static HiNet _instance;
-
   HiErrorInterceptor _hiErrorInterceptor;
+  static HiNet _instance;
 
   static HiNet getInstance() {
     if (_instance == null) {
@@ -26,8 +24,6 @@ class HiNet {
 
   Future fire(BaseRequest request) async {
     HiNetResponse response;
-    print("request:${request.url()}");
-
     var error;
     try {
       response = await send(request);
@@ -61,7 +57,7 @@ class HiNet {
         hiError = HiNetError(status, result.toString(), data: result);
         break;
     }
-
+    //交给拦截器处理错误
     if (_hiErrorInterceptor != null) {
       _hiErrorInterceptor(hiError);
     }

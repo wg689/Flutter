@@ -9,7 +9,10 @@ import 'package:flutter_bili_app/widget/login_button.dart';
 import 'package:flutter_bili_app/widget/login_effect.dart';
 import 'package:flutter_bili_app/widget/login_input.dart';
 
+///登录页面
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -23,22 +26,24 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar("密码登录", "注册", () {}),
+      appBar: appBar('密码登录', '注册', () {
+        HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
+      }),
       body: Container(
         child: ListView(
           children: [
             LoginEffect(protect: protect),
             LoginInput(
-              "用户名",
-              "请输入用户",
+              '用户名',
+              '请输入用户',
               onChanged: (text) {
                 userName = text;
                 checkInput();
               },
             ),
             LoginInput(
-              "密码",
-              "请输入密码",
+              '密码',
+              '请输入密码',
               obscureText: true,
               onChanged: (text) {
                 password = text;
@@ -51,13 +56,12 @@ class _LoginPageState extends State<LoginPage> {
               },
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: LoginButton(
-                '登录',
-                enable: loginEnable,
-                onPressed: send,
-              ),
-            ),
+                padding: EdgeInsets.only(left: 20, right: 20, top: 20),
+                child: LoginButton(
+                  '登录',
+                  enable: loginEnable,
+                  onPressed: send,
+                ))
           ],
         ),
       ),
@@ -66,15 +70,14 @@ class _LoginPageState extends State<LoginPage> {
 
   void checkInput() {
     bool enable;
-    if (isNotEmpty(userName) && isNotEmpty(password)) {
-      enable = true;
-    } else {
-      enable = true;
-    }
-
-    setState(() {
-      loginEnable = enable;
-    });
+    // if (isNotEmpty(userName) && isNotEmpty(password)) {
+    //   enable = true;
+    // } else {
+    enable = true;
+    // }
+    // setState(() {
+    //   loginEnable = enable;
+    // });
   }
 
   void send() async {
@@ -82,7 +85,8 @@ class _LoginPageState extends State<LoginPage> {
       var result = await LoginDao.login("13554086095", "123456");
       print(result);
       if (result['code'] == 0) {
-        print("登录成功");
+        print('登录成功');
+        showToast('登录成功');
         HiNavigator.getInstance().onJumpTo(RouteStatus.home);
       } else {
         print(result['msg']);

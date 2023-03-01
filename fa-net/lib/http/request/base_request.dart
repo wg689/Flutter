@@ -34,9 +34,8 @@ abstract class BaseRequest {
     } else {
       uri = Uri.http(authority(), pathStr, params);
     }
-    print("need login ${needLogin()}");
     if (needLogin()) {
-      print("LoginDao.getBoardingPass() ${LoginDao.getBoardingPass()}");
+      //给需要登录的接口携带登录令牌
       addHeader(LoginDao.BOARDING_PASS, LoginDao.getBoardingPass());
     }
     print('url:${uri.toString()}');
@@ -62,7 +61,7 @@ abstract class BaseRequest {
 
   ///添加header
   BaseRequest addHeader(String k, Object v) {
-    params[k] = v.toString();
+    header[k] = v.toString();
     return this;
   }
 }

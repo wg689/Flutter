@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
-import 'package:flutter_bili_app/page/home_page.dart';
 import 'package:flutter_bili_app/page/favorite_page.dart';
 import 'package:flutter_bili_app/page/home_page.dart';
 import 'package:flutter_bili_app/page/profile_page.dart';
 import 'package:flutter_bili_app/page/rangking_page.dart';
-import 'package:flutter_bili_app/page/rangking_page.dart';
 import 'package:flutter_bili_app/util/color.dart';
 
+///底部导航
 class BottomNavigator extends StatefulWidget {
   @override
   _BottomNavigatorState createState() => _BottomNavigatorState();
@@ -18,25 +17,25 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   final _activeColor = primary;
   int _currentIndex = 0;
   static int initialPage = 0;
-  bool _hasBuild = false;
   final PageController _controller = PageController(initialPage: initialPage);
   List<Widget> _pages;
+  bool _hasBuild = false;
 
   @override
   Widget build(BuildContext context) {
     _pages = [
-      HomePage(
-        onJumpTo: (index) => _onJumpTo(index, pageChange: false),
-      ),
+      HomePage(onJumpTo: (index) => _onJumpTo(index, pageChange: false)),
       RankingPage(),
       FavoritePage(),
       ProfilePage()
     ];
     if (!_hasBuild) {
+      //页面第一次打开时通知打开的是那个tab
       HiNavigator.getInstance()
           .onBottomTabChange(initialPage, _pages[initialPage]);
       _hasBuild = true;
     }
+
     return Scaffold(
       body: PageView(
         controller: _controller,
@@ -50,10 +49,10 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: _activeColor,
         items: [
-          _bottomItem("首页", Icons.home, 0),
-          _bottomItem("排行", Icons.local_fire_department, 1),
-          _bottomItem("收藏", Icons.favorite, 2),
-          _bottomItem("我的", Icons.live_tv, 3),
+          _bottomItem('首页', Icons.home, 0),
+          _bottomItem('排行', Icons.local_fire_department, 1),
+          _bottomItem('收藏', Icons.favorite, 2),
+          _bottomItem('我的', Icons.live_tv, 3),
         ],
       ),
     );
@@ -68,12 +67,13 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
   void _onJumpTo(int index, {pageChange = false}) {
     if (!pageChange) {
+      //让PageView展示对应tab
       _controller.jumpToPage(index);
     } else {
       HiNavigator.getInstance().onBottomTabChange(index, _pages[index]);
     }
-
     setState(() {
+      //控制选中第一个tab
       _currentIndex = index;
     });
   }
