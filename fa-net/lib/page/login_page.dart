@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/login_dao.dart';
+import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/util/string_util.dart';
 import 'package:flutter_bili_app/util/toast.dart';
 import 'package:flutter_bili_app/widget/appbar.dart';
@@ -15,7 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool protect = false;
-  bool loginEnable = false;
+  bool loginEnable = true;
   String userName;
   String password;
 
@@ -68,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
     if (isNotEmpty(userName) && isNotEmpty(password)) {
       enable = true;
     } else {
-      enable = false;
+      enable = true;
     }
 
     setState(() {
@@ -78,10 +79,11 @@ class _LoginPageState extends State<LoginPage> {
 
   void send() async {
     try {
-      var result = await LoginDao.login(userName, password);
+      var result = await LoginDao.login("13554086095", "123456");
       print(result);
       if (result['code'] == 0) {
         print("登录成功");
+        HiNavigator.getInstance().onJumpTo(RouteStatus.home);
       } else {
         print(result['msg']);
         showWarnToast(result['msg']);

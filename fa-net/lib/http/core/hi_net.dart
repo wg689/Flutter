@@ -26,6 +26,8 @@ class HiNet {
 
   Future fire(BaseRequest request) async {
     HiNetResponse response;
+    print("request:${request.url()}");
+
     var error;
     try {
       response = await send(request);

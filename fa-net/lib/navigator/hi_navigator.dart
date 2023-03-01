@@ -46,7 +46,7 @@ class RouteStatusInfo {
 
 /// 监听路由页面的跳转
 /// 感知当前的页面是否压后台
-class HiNavigator extends _RouteJumpListenr {
+class HiNavigator extends _RouteJumpListener {
   static HiNavigator _instance;
 
   RouteJumpListener _routeJump;
@@ -90,11 +90,6 @@ class HiNavigator extends _RouteJumpListenr {
     _listenners.remove(listener);
   }
 
-  @override
-  void onJummpTo(RouteStatus routeStatus, {Map args}) {
-    _routeJump.onjumpto(routeStatus, args: args);
-  }
-
   /// 通知路由页面的变化
   void notify(List<MaterialPage> currentPages, List<MaterialPage> prePages) {
     if (currentPages == prePages) {
@@ -120,21 +115,20 @@ class HiNavigator extends _RouteJumpListenr {
 
   @override
   void onJumpTo(RouteStatus routeStatus, {Map args}) {
-    _routeJump.onjumpto(routeStatus, args: args);
+    print("_routeJump ${_routeJump} , routeStatus ${routeStatus}");
+    _routeJump.onJumpTo(routeStatus, args: args);
   }
 }
 
 ///抽象类提供Hinavigator实现
-abstract class _RouteJumpListenr {
+abstract class _RouteJumpListener {
   void onJumpTo(RouteStatus routeStatus, {Map args});
 }
 
-typedef OnjumpTo = void Function(RouteStatus routeStatus, {Map args});
+typedef OnJumpTo = void Function(RouteStatus routeStatus, {Map args});
 
 ///定义路由跳转逻辑实现功能
 class RouteJumpListener {
-  final OnjumpTo onjumpto;
-  RouteJumpListener(
-      {this.onjumpto,
-      Null Function(RouteStatus routeStatus, {Map args}) onJumpTo});
+  final OnJumpTo onJumpTo;
+  RouteJumpListener({this.onJumpTo});
 }

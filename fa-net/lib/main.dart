@@ -57,21 +57,24 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
 
   /// 为navigator 设置一个key 必要时候可以通过navigateKey.currentSttae 来获得
   BiliRouteDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
+    print("注册listenser1");
+
     HiNavigator.getInstance().registerRouteJump(
         RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map args}) {
       _routeStatus = routeStatus;
       if (routeStatus == RouteStatus.detail) {
         this.videoModel = args['videoMo'];
       }
+      print("注册listenser");
       notifyListeners();
     }));
 
-    // HiNet.getInstance().setErrorInterceptor((error) {
-    //   if (error is NeedLogin) {
-    //     HiCache.getInstance().setString(LoginDao.BOARDING_PASS, null);
-    //     HiNavigator.getInstance().onJummpTo(RouteStatus.login);
-    //   }
-    // });
+    HiNet.getInstance().setErrorInterceptor((error) {
+      if (error is NeedLogin) {
+        // HiCache.getInstance().setString(LoginDao.BOARDING_PASS, "");
+        HiNavigator.getInstance().onJumpTo(RouteStatus.login);
+      }
+    });
   }
 
   RouteStatus _routeStatus = RouteStatus.home;
@@ -128,8 +131,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   }
 
   RouteStatus get routeStatus {
-    // if (_routeStatus != RouteStatus.registration && !hasLogin) {
-    if (false) {
+    if (_routeStatus != RouteStatus.registration && !hasLogin) {
       return _routeStatus = RouteStatus.login;
     } else if (videoModel != null) {
       return _routeStatus = RouteStatus.detail;
@@ -138,9 +140,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     }
   }
 
-  // bool get hasLogin => LoginDao.getBoardingPass() != null;
-
-  bool get hasLogin => true;
+  bool get hasLogin => LoginDao.getBoardingPass() != null;
 
   @override
   Future<void> setNewRoutePath(BiliRoutePath path) async {}
