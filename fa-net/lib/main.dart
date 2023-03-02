@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/db/hi_cache.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/login_dao.dart';
+import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/navigator/bottom_navigator.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/http/request/test_request.dart';
@@ -79,7 +80,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
 
   RouteStatus _routeStatus = RouteStatus.home;
   List<MaterialPage> pages = [];
-  VideoModel videoModel;
+  VideoMo videoModel;
 
 // 开始
   @override

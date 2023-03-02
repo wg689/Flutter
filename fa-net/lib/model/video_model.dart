@@ -1,4 +1,7 @@
 class VideoModel {
   int vid;
-  VideoModel(this.vid);
+  String title;
+  String url;
+  String cover;
+  VideoModel(this.vid, this.title, this.url, this.cover);
 }
