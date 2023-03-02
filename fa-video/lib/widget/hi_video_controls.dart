@@ -7,7 +7,7 @@ import 'package:chewie/src/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-///自定义播放器UI
+///自 定义播放器UI
 class MaterialControls extends StatefulWidget {
   //初始化时是否展示loading
   final bool showLoadingOnInitialize;

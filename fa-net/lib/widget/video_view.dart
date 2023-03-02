@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
+import 'package:flutter_bili_app/widget/appbar.dart';
+import 'package:orientation/orientation.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart' hide MaterialControls;
 import 'package:flutter_bili_app/widget/hi_video_controls.dart';
@@ -70,14 +73,24 @@ class _VideoViewState extends State<VideoView> {
         customControls: MaterialControls(
           showLoadingOnInitialize: false,
           showBigPlayIcon: false,
-          // overlayUI: widget.overlayUI,
+          bottomGradient: blackLineraGradient(),
+          overlayUI: videoAppBar(),
         ));
+    _chewieController.addListener(_fullScreenListener);
   }
 
   @override
   void dispose() {
-    super.dispose();
     _videoPlayerController.dispose();
     _chewieController.dispose();
+    _chewieController.removeListener(_fullScreenListener);
+    super.dispose();
+  }
+
+  void _fullScreenListener() {
+    Size size = MediaQuery.of(context).size;
+    if (size.width > size.height) {
+      OrientationPlugin.forceOrientation(DeviceOrientation.portraitUp);
+    }
   }
 }
