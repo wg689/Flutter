@@ -3,7 +3,7 @@ import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
 enum StatusStyle { LIGHT_CONTENT, DARK_CONTENT }
 
-class NavigationBar extends StatelessWidget {
+class NavigationBar extends StatefulWidget {
   final StatusStyle statusStyle;
   final Color color;
   final double height;
@@ -18,22 +18,33 @@ class NavigationBar extends StatelessWidget {
       : super(key: key);
 
   @override
+  _NavigationBarState createState() => _NavigationBarState();
+}
+
+class _NavigationBarState extends State<NavigationBar> {
+  @override
+  void initState() {
+    super.initState();
+    _statusBarInit();
+  }
+
   Widget build(BuildContext context) {
     _statusBarInit();
     var top = MediaQuery.of(context).padding.top;
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: top + height,
-      child: child,
+      height: top + widget.height,
+      child: widget.child,
       padding: EdgeInsets.only(top: top),
-      decoration: BoxDecoration(color: color),
+      decoration: BoxDecoration(color: widget.color),
     );
   }
 
   void _statusBarInit() {
-    FlutterStatusbarManager.setColor(color, animated: false);
-    FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.DARK_CONTENT
-        ? StatusBarStyle.DARK_CONTENT
-        : StatusBarStyle.LIGHT_CONTENT);
+    FlutterStatusbarManager.setColor(widget.color, animated: false);
+    FlutterStatusbarManager.setStyle(
+        widget.statusStyle == StatusStyle.DARK_CONTENT
+            ? StatusBarStyle.DARK_CONTENT
+            : StatusBarStyle.LIGHT_CONTENT);
   }
 }

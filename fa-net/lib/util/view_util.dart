@@ -27,7 +27,7 @@ void changeStatusBar(
     {color: Colors.white, StatusStyle statusStyle: StatusStyle.DARK_CONTENT}) {
   FlutterStatusbarManager.setColor(color, animated: false);
   FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.DARK_CONTENT
-      ? StatusStyle.DARK_CONTENT
+      ? StatusBarStyle.DARK_CONTENT
       : StatusBarStyle.LIGHT_CONTENT);
 }
 

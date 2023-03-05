@@ -5,11 +5,15 @@ import 'package:flutter_bili_app/http/dao/home_dao.dart';
 import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/page/home_tab_page.dart';
+import 'package:flutter_bili_app/page/profile_page.dart';
+import 'package:flutter_bili_app/page/video_detail_page.dart';
 import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/util/toast.dart';
+import 'package:flutter_bili_app/widget/HiTab.dart';
 import 'package:flutter_bili_app/widget/loading_container.dart';
 import 'package:flutter_bili_app/widget/navigation_bar.dart';
 import 'package:underline_indicator/underline_indicator.dart';
+import 'package:flutter_bili_app/util/view_util.dart';
 
 class HomePage extends StatefulWidget {
   final ValueChanged<int> onJumpTo;
@@ -21,7 +25,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends HiState<HomePage>
-    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+    with
+        AutomaticKeepAliveClientMixin,
+        TickerProviderStateMixin,
+        WidgetsBindingObserver {
   var listener;
   TabController _controller;
   List<CategoryMo> categoryList = [];
@@ -31,6 +38,7 @@ class _HomePageState extends HiState<HomePage>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _controller = TabController(length: categoryList.length, vsync: this);
     HiNavigator.getInstance().addListener(this.listener = (current, pre) {
       print('home:current:${current.page}');
@@ -40,6 +48,10 @@ class _HomePageState extends HiState<HomePage>
       } else if (widget == pre?.page || pre?.page is HomePage) {
         print('首页:onPause');
       }
+      if (pre?.page is VideoDetailPage && !(current.page is ProfilePage)) {
+        var statusStyle = StatusStyle.DARK_CONTENT;
+        changeStatusBar(color: Colors.white, statusStyle: statusStyle);
+      }
     });
     loadData();
   }
@@ -48,7 +60,26 @@ class _HomePageState extends HiState<HomePage>
   void dispose() {
     HiNavigator.getInstance().removeListener(this.listener);
     _controller.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print(':didChangeAppLifecycleState:$state');
+    switch (state) {
+      case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
+        break;
+      case AppLifecycleState.resumed: //从后台切换前台，界面可见
+        //fix Android压后台首页状态栏字体颜色变白，详情页状态栏字体变黑问题
+        changeStatusBar();
+        break;
+      case AppLifecycleState.paused: // 界面不可见，后台
+        break;
+      case AppLifecycleState.detached: // APP结束时调用
+        break;
+    }
   }
 
   @override
@@ -88,24 +119,18 @@ class _HomePageState extends HiState<HomePage>
 
   ///自定义顶部tab
   _tabBar() {
-    return TabBar(
-        controller: _controller,
-        isScrollable: true,
-        labelColor: Colors.black,
-        indicator: UnderlineIndicator(
-            strokeCap: StrokeCap.round,
-            borderSide: BorderSide(color: primary, width: 3),
-            insets: EdgeInsets.only(left: 15, right: 15)),
-        tabs: categoryList.map<Tab>((tab) {
-          return Tab(
-              child: Padding(
-            padding: EdgeInsets.only(left: 5, right: 5),
-            child: Text(
-              tab.name,
-              style: TextStyle(fontSize: 16),
-            ),
-          ));
-        }).toList());
+    return HiTab(
+      categoryList.map<Tab>((tab) {
+        return Tab(
+          text: tab.name,
+        );
+      }).toList(),
+      controller: _controller,
+      fontSize: 16,
+      borderWidth: 3,
+      unselectedLabelColor: Colors.black54,
+      insets: 13,
+    );
   }
 
   void loadData() async {

@@ -81,9 +81,9 @@ class _VideoViewState extends State<VideoView> {
 
   @override
   void dispose() {
+    _chewieController.removeListener(_fullScreenListener);
     _videoPlayerController.dispose();
     _chewieController.dispose();
-    _chewieController.removeListener(_fullScreenListener);
     super.dispose();
   }
 
