@@ -15,6 +15,7 @@ import 'package:flutter_bili_app/page/video_detail_page.dart';
 import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/util/toast.dart';
 import 'dart:convert';
+import 'package:flutter_bili_app/model/video_model.dart';
 
 import 'http/core/hi_net.dart';
 import 'model/video_model.dart';
@@ -64,6 +65,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
         RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map args}) {
       _routeStatus = routeStatus;
       if (routeStatus == RouteStatus.detail) {
+        print("args['videoMo'] ${args['videoMo']}");
         this.videoModel = args['videoMo'];
       }
       print("注册listenser");

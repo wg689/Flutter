@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_bili_app/model/video_model.dart';
 
 class HiBanner extends StatelessWidget {
   final List<BannerMo> bannerList;
@@ -56,7 +57,7 @@ class HiBanner extends StatelessWidget {
   void _handleClick(BannerMo bannerMo) {
     if (bannerMo.type == 'video') {
       HiNavigator.getInstance().onJumpTo(RouteStatus.detail,
-          args: {'videoMo': VideoMo(vid: bannerMo.url)});
+          args: {'VideoModel': VideoModel(vid: bannerMo.url)});
     } else {
       print('type:${bannerMo.type} ,url:${bannerMo.url}');
       //todo

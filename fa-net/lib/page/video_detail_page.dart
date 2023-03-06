@@ -33,6 +33,9 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   @override
   void initState() {
     super.initState();
+    print("initStatevideoModel:${widget.videoModel}");
+
+    videoModel = widget.videoModel;
     changeStatusBar(
         color: Colors.black, statusStyle: StatusStyle.LIGHT_CONTENT);
     _controller = TabController(length: tabs.length, vsync: this);
@@ -78,7 +81,8 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   }
 
   _buildBideoView() {
-    var model = widget.videoModel;
+    print("videoModel:${videoModel}");
+    var model = videoModel;
     return VideoView(url: model.url, cover: model.cover);
   }
 
@@ -127,7 +131,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   buildContends() {
     return [
       Container(
-        child: VideoHeader(owner: widget.videoModel.owner),
+        child: VideoHeader(owner: videoModel.owner),
       ),
       ExpandableContent(mo: videoModel),
       VideoToolBar(
@@ -142,7 +146,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
 
   _loadDetail() async {
     try {
-      VideoDetailMo result = await VideoDetailDao.get(widget.videoModel.vid);
+      VideoDetailMo result = await VideoDetailDao.get(videoModel.vid);
       print(result);
       setState(() {
         videoDetailMo = result;

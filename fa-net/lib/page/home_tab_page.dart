@@ -7,6 +7,7 @@ import 'package:flutter_bili_app/util/toast.dart';
 import 'package:flutter_bili_app/widget/hi_banner.dart';
 import 'package:flutter_bili_app/widget/video_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_bili_app/model/video_model.dart';
 
 class HomeTabPage extends StatefulWidget {
   final String categoryName;
@@ -21,7 +22,7 @@ class HomeTabPage extends StatefulWidget {
 
 class _HomeTabPageState extends State<HomeTabPage>
     with AutomaticKeepAliveClientMixin {
-  List<VideoMo> videoList = [];
+  List<VideoModel> videoList = [];
   int pageIndex = 1;
   bool _loading = false;
   ScrollController _scrollController = ScrollController();

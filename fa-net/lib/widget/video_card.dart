@@ -3,10 +3,11 @@ import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/util/format_util.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
+import 'package:flutter_bili_app/model/video_model.dart';
 
 ///视频卡片
 class VideoCard extends StatelessWidget {
-  final VideoMo videoMo;
+  final VideoModel videoMo;
 
   const VideoCard({Key key, this.videoMo}) : super(key: key);
 
