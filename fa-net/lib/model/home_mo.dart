@@ -1,3 +1,5 @@
+import 'package:flutter_bili_app/model/video_model.dart';
+
 ///解放生产力：在线json转dart https://www.devio.org/io/tools/json-to-dart/
 class HomeMo {
   List<BannerMo> bannerList;
@@ -189,28 +191,6 @@ class VideoMo {
     data['share'] = this.share;
     data['createTime'] = this.createTime;
     data['size'] = this.size;
-    return data;
-  }
-}
-
-class Owner {
-  String name;
-  String face;
-  int fans;
-
-  Owner({this.name, this.face, this.fans});
-
-  Owner.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    face = json['face'];
-    fans = json['fans'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['face'] = this.face;
-    data['fans'] = this.fans;
     return data;
   }
 }

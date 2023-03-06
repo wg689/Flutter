@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_app/util/format_util.dart';
 import 'package:flutter_bili_app/widget/navigation_bar.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 
@@ -43,4 +44,27 @@ blackLineraGradient({bool fromTop = false}) {
         Colors.black12,
         Colors.transparent
       ]);
+}
+
+smallIconText(IconData iconData, var text) {
+  var style = TextStyle(fontSize: 12, color: Colors.grey);
+  if (text is int) {
+    text = countFormat(text);
+  }
+  return [
+    Icon(iconData, color: Colors.grey, size: 12),
+    Text('$text', style: style)
+  ];
+}
+
+borderLine(BuildContext context, {bottom: true, top: false}) {
+  BorderSide borderSide = BorderSide(width: 0.5, color: Colors.grey[200]);
+  return Border(
+    bottom: bottom ? borderSide : BorderSide.none,
+    top: top ? borderSide : BorderSide.none,
+  );
+}
+
+SizedBox hiSpace({double height: 1, double width: 1}) {
+  return SizedBox(height: height, width: width);
 }
