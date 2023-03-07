@@ -71,6 +71,7 @@ class _HomeTabPageState extends State<HomeTabPage>
                       padding: EdgeInsets.only(bottom: 8), child: _banner());
                 } else {
                   return VideoCard(videoMo: videoList[index]);
+                
                 }
               },
               staggeredTileBuilder: (int index) {

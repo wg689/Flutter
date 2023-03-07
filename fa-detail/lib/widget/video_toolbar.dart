@@ -34,7 +34,7 @@ class VideoToolBar extends StatelessWidget {
       decoration: BoxDecoration(border: borderLine(context)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
+        children: [ 
           _buildIconText(Icons.thumb_up_alt_rounded, videoModel.like,
               onClick: onLike, tint: detailMo?.isLike),
           _buildIconText(Icons.thumb_down_alt_rounded, '不喜欢',
