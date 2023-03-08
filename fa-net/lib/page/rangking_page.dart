@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart' hide NavigationBar;
+import 'package:flutter_bili_app/http/dao/ranking_dao.dart';
+import 'package:flutter_bili_app/page/ranking_tab_page.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
 import 'package:flutter_bili_app/widget/HiTab.dart';
 import 'package:flutter_bili_app/widget/navigation_bar.dart';
@@ -21,6 +23,7 @@ class _RankingPageState extends State<RankingPage>
   void initState() {
     super.initState();
     _controller = TabController(length: TABS.length, vsync: this);
+    RankingDao.get("like");
   }
 
   @override
@@ -32,9 +35,8 @@ class _RankingPageState extends State<RankingPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: _buildNavigationBar(),
+      body: Column(
+        children: [_buildNavigationBar(), _buildTableView()],
       ),
     );
   }
@@ -58,5 +60,20 @@ class _RankingPageState extends State<RankingPage>
       unselectedLabelColor: Colors.black54,
       controller: _controller,
     );
+  }
+
+  // _buildTableView() {
+  //   return Flexible(
+  //       child: Container(
+  //     color: Colors.red,
+  //   ));
+  // }
+  _buildTableView() {
+    return Flexible(
+        child: TabBarView(
+            controller: _controller,
+            children: TABS.map((tab) {
+              return RankingTabPage(sort: tab['key']);
+            }).toList()));
   }
 }

@@ -21,7 +21,9 @@ abstract class HiBaseTabState<M, L, T extends StatefulWidget>
           scrollController.position.pixels;
       print('dis:$dis');
       //当距离底部不足300时加载更多
-      if (dis < 300 && !loading) {
+      if (dis < 300 &&
+          !loading &&
+          scrollController.position.maxScrollExtent != 0) {
         print('------_loadData---');
         loadData(loadMore: true);
       }
