@@ -55,7 +55,6 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
         body: videoModel.url != null
             ? MediaQuery.removePadding(
                 removeTop: Platform.isIOS,
