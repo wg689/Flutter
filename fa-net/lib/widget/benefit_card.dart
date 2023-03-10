@@ -35,6 +35,18 @@ class BenefitCard extends StatelessWidget {
     );
   }
 
+  _buildBenefit(BuildContext context) {
+    var width = (MediaQuery.of(context).size.width -
+            20 -
+            (benefitList.length - 1) * 5) /
+        benefitList.length;
+    return Row(
+      children: [
+        ...benefitList.map((e) => _buildCard(context, e, width)).toSet()
+      ],
+    );
+  }
+
   _buildCard(BuildContext context, Benefit mo, double width) {
     return InkWell(
       onTap: () {},
@@ -63,18 +75,6 @@ class BenefitCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  _buildBenefit(BuildContext context) {
-    var width = (MediaQuery.of(context).size.width -
-            20 -
-            (benefitList.length - 1) * 5) /
-        benefitList.length;
-    return Row(
-      children: [
-        ...benefitList.map((e) => _buildCard(context, e, width)).toSet()
-      ],
     );
   }
 }
