@@ -2,6 +2,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart' hide NavigationBar;
+import 'package:flutter_bili_app/barrage/HiSocket.dart';
+import 'package:flutter_bili_app/barrage/hi_barrage.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/core/hi_net.dart';
 import 'package:flutter_bili_app/http/dao/video_deatail_dao.dart';
@@ -11,6 +13,7 @@ import 'package:flutter_bili_app/model/video_model.dart';
 import 'package:flutter_bili_app/util/toast.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
 import 'package:flutter_bili_app/widget/HiTab.dart';
+import 'package:flutter_bili_app/widget/appbar.dart';
 import 'package:flutter_bili_app/widget/expand_tile.dart';
 import 'package:flutter_bili_app/widget/navigation_bar.dart';
 import 'package:flutter_bili_app/widget/video_header.dart';
@@ -34,9 +37,14 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   VideoDetailMo videoDetailMo;
   VideoModel videoModel;
   List<VideoModel> videoList = [];
+  HiSocket _hiSocket;
+
+  var _barrageKey = GlobalKey<HiBarrageState>();
+
   @override
   void initState() {
     super.initState();
+    // _barrageKey.currentState.pause;
     print("initStatevideoModel:${widget.videoModel}");
 
     videoModel = widget.videoModel;
@@ -44,6 +52,15 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         color: Colors.black, statusStyle: StatusStyle.LIGHT_CONTENT);
     _controller = TabController(length: tabs.length, vsync: this);
     _loadDetail();
+    _initSocket();
+  }
+
+  void _initSocket() {
+    print('初始化socket:${videoModel.vid}');
+    _hiSocket = HiSocket();
+    // _hiSocket.open(videoModel.vid).listen((value) {
+    // print('收到: $value');
+    // });
   }
 
   @override
@@ -88,7 +105,12 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   _buildBideoView() {
     print("videoModel:${videoModel}");
     var model = videoModel;
-    return VideoView(url: model.url, cover: model.cover);
+    return VideoView(
+      url: model.url,
+      cover: model.cover,
+      overlayUI: videoAppBar(),
+      barrageUI: HiBarrage(key: _barrageKey, vid: model.vid, autoPlay: true),
+    );
   }
 
   _tabBar() {
