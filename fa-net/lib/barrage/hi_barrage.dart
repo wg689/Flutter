@@ -99,10 +99,11 @@ class HiBarrageState extends State<HiBarrage> implements IBarrage {
   }
 
   void addBarrage(BarrageModel model) {
-    double perRowHeight = 30;
+    double perRowHeight = 50;
     var line = _barrageIndex % widget.lineCount;
     _barrageIndex++;
     var top = line * perRowHeight + widget.top;
+    print("line: ${line} _barrageIndex:${_barrageIndex} top:${top}");
     String id = '${_random.nextInt(10000)}:{model.content}}';
     var item = BarrageItem(
       id: id,

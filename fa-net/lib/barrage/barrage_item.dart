@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/barrage/HiSocket.dart';
+import 'package:flutter_bili_app/barrage/barrage_transition.dart';
 
 class BarrageItem extends StatelessWidget {
   final String id;
@@ -8,17 +9,27 @@ class BarrageItem extends StatelessWidget {
   final ValueChanged onComplete;
   final Duration duration;
 
-  const BarrageItem(
-      {Key key, this.id, this.top, this.onComplete, this.duration, this.child})
+  BarrageItem(
+      {Key key,
+      this.id,
+      this.top,
+      this.onComplete,
+      this.duration = const Duration(milliseconds: 9000),
+      this.child})
       : super(key: key);
+
+  var _key = GlobalKey<BarrageTransitionState>();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: top),
-      child: Container(
-        child: child,
-      ),
-    );
+    return Positioned.fill(
+        top: top,
+        child: BarrageTransition(
+            key: _key,
+            child: child,
+            onComplete: (v) {
+              onComplete(id);
+            },
+            duration: duration));
   }
 }
