@@ -1,6 +1,6 @@
-import 'package:flutter_bili_app/http/request/base_request.dart';
+import 'package:flutter_bili_app/http/request/hi_base_request.dart';
 
-class NoticeRequest extends BaseRequest {
+class NoticeRequest extends HiBaseRequest {
   @override
   HttpMethod httpMethod() {
     return HttpMethod.GET;
