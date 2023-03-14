@@ -36,17 +36,17 @@ class _RankingPageState extends State<RankingPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [_buildNavigationBar(), _buildTableView()],
+        children: [_buildNavigationBar(context), _buildTableView()],
       ),
     );
   }
 
-  _buildNavigationBar() {
+  _buildNavigationBar(BuildContext context) {
     return NavigationBar(
         child: Container(
       alignment: Alignment.center,
       child: _tabBar(),
-      decoration: bottomBoxShadow(),
+      decoration: bottomBoxShadow(context),
     ));
   }
 

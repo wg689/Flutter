@@ -3,4 +3,5 @@ class HiConstants {
   static String authTokenK = 'auth-token';
   static String courseFlagK = 'course-flag';
   static String courseFlagV = 'fa';
+  static String theme = 'theme';
 }

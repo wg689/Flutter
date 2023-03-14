@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart' hide NavigationBar;
 import 'package:flutter_bili_app/barrage/HiSocket.dart';
+import 'package:flutter_bili_app/barrage/barrage_input.dart';
 import 'package:flutter_bili_app/barrage/hi_barrage.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/core/hi_net.dart';
@@ -21,6 +22,7 @@ import 'package:flutter_bili_app/widget/video_large_card.dart';
 import 'package:flutter_bili_app/widget/video_toolbar.dart';
 import 'package:flutter_bili_app/widget/video_view.dart';
 import 'package:flutter_bili_app/http/dao/favorite_dao.dart';
+import 'package:flutter_overlay/flutter_overlay.dart';
 
 class VideoDetailPage extends StatefulWidget {
   final VideoModel videoModel;
@@ -38,6 +40,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   VideoModel videoModel;
   List<VideoModel> videoList = [];
   HiSocket _hiSocket;
+  bool _inoutShowing = false;
 
   var _barrageKey = GlobalKey<HiBarrageState>();
 
@@ -133,16 +136,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
         color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _tabBar(),
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.ac_unit_outlined,
-                color: Colors.grey,
-              ),
-            )
-          ],
+          children: [_tabBar(), _buildBarrageBtn()],
         ),
       ),
     );
@@ -222,5 +216,27 @@ class _VideoDetailPageState extends State<VideoDetailPage>
     return videoList
         .map((VideoModel mo) => VideoLargeCard(videoModel: mo))
         .toList();
+  }
+
+  _buildBarrageBtn() {
+    return InkWell(
+      onTap: () {
+        HiOverlay.show(context, child: BarrageInput(onTabClose: () {
+          setState(() {
+            _inoutShowing = false;
+          });
+        })).then((value) {
+          print('---input:$value');
+          _barrageKey.currentState.send(value);
+        });
+      },
+      child: Padding(
+        padding: EdgeInsets.only(right: 20),
+        child: Icon(
+          Icons.ac_unit_outlined,
+          color: Colors.grey,
+        ),
+      ),
+    );
   }
 }

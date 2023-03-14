@@ -7,6 +7,7 @@ import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/page/home_tab_page.dart';
 import 'package:flutter_bili_app/page/profile_page.dart';
 import 'package:flutter_bili_app/page/video_detail_page.dart';
+import 'package:flutter_bili_app/provider/theme_provider.dart';
 import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/util/toast.dart';
 import 'package:flutter_bili_app/widget/HiTab.dart';
@@ -14,6 +15,8 @@ import 'package:flutter_bili_app/widget/loading_container.dart';
 import 'package:flutter_bili_app/widget/navigation_bar.dart';
 import 'package:underline_indicator/underline_indicator.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_bili_app/provider/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   final ValueChanged<int> onJumpTo;
@@ -50,7 +53,8 @@ class _HomePageState extends HiState<HomePage>
       }
       if (pre?.page is VideoDetailPage && !(current.page is ProfilePage)) {
         var statusStyle = StatusStyle.DARK_CONTENT;
-        changeStatusBar(color: Colors.white, statusStyle: statusStyle);
+        changeStatusBar(
+            color: Colors.white, statusStyle: statusStyle, context: context);
       }
     });
     loadData();
@@ -65,6 +69,12 @@ class _HomePageState extends HiState<HomePage>
   }
 
   @override
+  void didChangePlatformBrightness() {
+    context.read<ThemeProvider>().darModeChange();
+    super.didChangePlatformBrightness();
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     print(':didChangeAppLifecycleState:$state');
@@ -73,7 +83,7 @@ class _HomePageState extends HiState<HomePage>
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
         //fix Android压后台首页状态栏字体颜色变白，详情页状态栏字体变黑问题
-        changeStatusBar();
+        changeStatusBar(context: context);
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
         break;
@@ -97,7 +107,7 @@ class _HomePageState extends HiState<HomePage>
               statusStyle: StatusStyle.DARK_CONTENT,
             ),
             Container(
-              color: Colors.white,
+              decoration: bottomBoxShadow(context),
               child: _tabBar(),
             ),
             Flexible(

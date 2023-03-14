@@ -1,8 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bili_app/navigator/hi_navigator.dart';
+import 'package:flutter_bili_app/page/profile_page.dart';
+import 'package:flutter_bili_app/page/video_detail_page.dart';
+import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/util/format_util.dart';
 import 'package:flutter_bili_app/widget/navigation_bar.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_bili_app/provider/theme_provider.dart';
 
 ///带缓存的image
 Widget cachedImage(String url, {double width, double height}) {
@@ -25,7 +31,23 @@ Widget cachedImage(String url, {double width, double height}) {
 }
 
 void changeStatusBar(
-    {color: Colors.white, StatusStyle statusStyle: StatusStyle.DARK_CONTENT}) {
+    {color: Colors.white,
+    StatusStyle statusStyle: StatusStyle.DARK_CONTENT,
+    BuildContext context}) {
+  if (context != null) {
+    var themeProvider = context.watch<ThemeProvider>();
+    if (themeProvider.isDark()) {
+      statusStyle = StatusStyle.LIGHT_CONTENT;
+      color = HiColor.dark_bg;
+    }
+    var page = HiNavigator.getInstance().getCurrent()?.page;
+    if (page is ProfilePage) {
+      color = Colors.transparent;
+    } else if (page is VideoDetailPage) {
+      color = Colors.black;
+    }
+  }
+
   FlutterStatusbarManager.setColor(color, animated: false);
   FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.DARK_CONTENT
       ? StatusBarStyle.DARK_CONTENT
@@ -69,7 +91,11 @@ SizedBox hiSpace({double height: 1, double width: 1}) {
   return SizedBox(height: height, width: width);
 }
 
-BoxDecoration bottomBoxShadow() {
+BoxDecoration bottomBoxShadow(BuildContext context) {
+  var themeProvider = context.watch<ThemeProvider>();
+  if (themeProvider.isDark()) {
+    return null;
+  }
   return BoxDecoration(color: Colors.white, boxShadow: [
     BoxShadow(
         color: Colors.grey[100],

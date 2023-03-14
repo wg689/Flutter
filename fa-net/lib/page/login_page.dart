@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/login_dao.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
+import 'package:flutter_bili_app/provider/theme_provider.dart';
 import 'package:flutter_bili_app/util/string_util.dart';
 import 'package:flutter_bili_app/util/toast.dart';
 import 'package:flutter_bili_app/widget/appbar.dart';
 import 'package:flutter_bili_app/widget/login_button.dart';
 import 'package:flutter_bili_app/widget/login_effect.dart';
 import 'package:flutter_bili_app/widget/login_input.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_bili_app/provider/theme_provider.dart';
 
 ///登录页面
 class LoginPage extends StatefulWidget {
@@ -27,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar('密码登录', '注册', () {
+        // ignore: sdk_version_constructor_tearoffs
+        context.read<ThemeProvider>().setTheme(ThemeMode.dark);
         HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
       }),
       body: Container(

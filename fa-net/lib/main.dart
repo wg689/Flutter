@@ -8,14 +8,18 @@ import 'package:flutter_bili_app/navigator/hi_navigator.dart';
 import 'package:flutter_bili_app/http/request/test_request.dart';
 import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/model/result.dart';
+import 'package:flutter_bili_app/page/dark_mode_page.dart';
 import 'package:flutter_bili_app/page/home_page.dart';
 import 'package:flutter_bili_app/page/login_page.dart';
 import 'package:flutter_bili_app/page/registration_page.dart';
 import 'package:flutter_bili_app/page/video_detail_page.dart';
+import 'package:flutter_bili_app/provider/hi_provider.dart';
+import 'package:flutter_bili_app/provider/theme_provider.dart';
 import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/util/toast.dart';
 import 'dart:convert';
 import 'package:flutter_bili_app/model/video_model.dart';
+import 'package:provider/provider.dart';
 
 import 'http/core/hi_net.dart';
 import 'model/video_model.dart';
@@ -45,10 +49,17 @@ class _BiliAppState extends State<BiliApp> {
                   body: Center(child: CircularProgressIndicator()),
                 );
           print("widget666:$widget");
-          return MaterialApp(
-            home: widget,
-            theme: ThemeData(primarySwatch: white),
-          );
+
+          return MultiProvider(
+              providers: topProvider,
+              child: Consumer<ThemeProvider>(builder: (BuildContext context,
+                  ThemeProvider themeProvider, Widget child) {
+                return MaterialApp(
+                    home: widget,
+                    theme: themeProvider.getTheme(),
+                    darkTheme: themeProvider.getTheme(isDarkMode: true),
+                    themeMode: themeProvider.getThemeMode());
+              }));
         });
   }
 }
@@ -97,6 +108,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     if (routeStatus == RouteStatus.home) {
       pages.clear();
       page = pageWrap(BottomNavigator());
+    } else if (routeStatus == RouteStatus.darkMode) {
+      page = pageWrap(DarkModePage());
     } else if (routeStatus == RouteStatus.detail) {
       page = pageWrap(VideoDetailPage(videoModel));
     } else if (routeStatus == RouteStatus.registration) {

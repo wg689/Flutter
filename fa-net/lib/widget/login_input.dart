@@ -12,6 +12,10 @@ class LoginInput extends StatefulWidget {
   final bool lineStretch;
   final bool obscureText;
   final TextInputType keyboardType;
+
+  var _statusStyle;
+  var _color;
+
   LoginInput(this.title, this.hint,
       {Key key,
       this.onChanged,
@@ -83,8 +87,7 @@ class _LoginInputState extends State<LoginInput> {
       keyboardType: widget.keyboardType,
       autofocus: !widget.obscureText,
       cursorColor: primary,
-      style: TextStyle(
-          fontSize: 16, color: Colors.black, fontWeight: FontWeight.w300),
+      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
       decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 20, right: 20),
           border: InputBorder.none,
