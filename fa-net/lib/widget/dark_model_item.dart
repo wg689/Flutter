@@ -12,7 +12,7 @@ class DarkModelItem extends StatefulWidget {
 class _DarkModelItemState extends State<DarkModelItem> {
   @override
   Widget build(BuildContext context) {
-    var themeProvider = context.watch<ThemeProvider>();
+    var themeProvider = context.read<ThemeProvider>();
     var icon = themeProvider.isDark()
         ? Icons.night_shelter_rounded
         : Icons.wb_sunny_rounded;

@@ -25,7 +25,7 @@ class HiTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var themeProvider = context.watch<ThemeProvider>();
+    var themeProvider = context.read<ThemeProvider>();
     print("themeProvider.isDark(): ${themeProvider.isDark()}");
     var _unselectedLabelColor =
         themeProvider.isDark() ? Colors.white70 : unselectedLabelColor;

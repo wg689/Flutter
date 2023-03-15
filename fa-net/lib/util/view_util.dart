@@ -35,7 +35,7 @@ void changeStatusBar(
     StatusStyle statusStyle: StatusStyle.DARK_CONTENT,
     BuildContext context}) {
   if (context != null) {
-    var themeProvider = context.watch<ThemeProvider>();
+    var themeProvider = context.read<ThemeProvider>();
     if (themeProvider.isDark()) {
       statusStyle = StatusStyle.LIGHT_CONTENT;
       color = HiColor.dark_bg;
@@ -92,7 +92,7 @@ SizedBox hiSpace({double height: 1, double width: 1}) {
 }
 
 BoxDecoration bottomBoxShadow(BuildContext context) {
-  var themeProvider = context.watch<ThemeProvider>();
+  var themeProvider = context.read<ThemeProvider>();
   if (themeProvider.isDark()) {
     return null;
   }

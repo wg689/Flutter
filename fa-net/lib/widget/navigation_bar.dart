@@ -31,7 +31,7 @@ class _NavigationBarState extends State<NavigationBar> {
   @override
   Widget build(BuildContext context) {
     var top = MediaQuery.of(context).padding.top;
-    var themeProvider = context.watch<ThemeProvider>();
+    var themeProvider = context.read<ThemeProvider>();
     if (themeProvider.isDark()) {
       _color = HiColor.dark_bg;
       _statusStyle = StatusStyle.LIGHT_CONTENT;
