@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_bili_app/http/core/hi_error.dart';
-import 'package:flutter_bili_app/http/core/hi_net_adapter.dart';
-import 'package:flutter_bili_app/http/request/hi_base_request.dart';
+
+import 'hi_error.dart';
+import 'hi_net_adapter.dart';
+import '../request/hi_base_request.dart';
 
 ///Dio适配器
 class DioAdapter extends HiNetAdapter {

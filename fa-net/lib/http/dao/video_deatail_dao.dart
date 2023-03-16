@@ -1,4 +1,4 @@
-import 'package:flutter_bili_app/http/core/hi_net.dart';
+import 'package:hi_net/hi_net.dart';
 import 'package:flutter_bili_app/http/request/video_deatail_request.dart';
 import 'package:flutter_bili_app/model/video_deatail_mo.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter_bili_app/db/hi_cache.dart';
-import 'package:flutter_bili_app/http/core/hi_net.dart';
-import 'package:flutter_bili_app/http/request/hi_base_request.dart';
+import 'package:hi_net/hi_net.dart';
+import 'package:hi_net/request/hi_base_request.dart';
 import 'package:flutter_bili_app/http/request/login_request.dart';
 import 'package:flutter_bili_app/http/request/registration_request.dart';
 

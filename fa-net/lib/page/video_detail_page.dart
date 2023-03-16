@@ -5,8 +5,8 @@ import 'package:flutter/material.dart' hide NavigationBar;
 import 'package:flutter_bili_app/barrage/HiSocket.dart';
 import 'package:flutter_bili_app/barrage/barrage_input.dart';
 import 'package:flutter_bili_app/barrage/hi_barrage.dart';
-import 'package:flutter_bili_app/http/core/hi_error.dart';
-import 'package:flutter_bili_app/http/core/hi_net.dart';
+// import 'package:flutter_bili_app/http/core/hi_error.dart';
+// import 'package:hi_net/hi_net.dart';
 import 'package:flutter_bili_app/http/dao/video_deatail_dao.dart';
 import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/model/video_deatail_mo.dart';
@@ -23,6 +23,7 @@ import 'package:flutter_bili_app/widget/video_toolbar.dart';
 import 'package:flutter_bili_app/widget/video_view.dart';
 import 'package:flutter_bili_app/http/dao/favorite_dao.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
+import 'package:hi_net/core/hi_error.dart';
 
 class VideoDetailPage extends StatefulWidget {
   final VideoModel videoModel;

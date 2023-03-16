@@ -1,6 +1,7 @@
-import 'package:flutter_bili_app/http/core/hi_net.dart';
+// import 'package:hi_net/hi_net.dart';
 import 'package:flutter_bili_app/http/request/home_request.dart';
 import 'package:flutter_bili_app/model/home_mo.dart';
+import 'package:hi_net/hi_net.dart';
 
 class HomeDao {
   static get(String catogoryName, {int pageIndex = 1, int pageSize = 1}) async {

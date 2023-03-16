@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_app/http/core/hi_error.dart';
+// import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/profile_dao.dart';
 import 'package:flutter_bili_app/http/dao/video_deatail_dao.dart';
 import 'package:flutter_bili_app/model/profile_mo.dart';
@@ -11,6 +11,7 @@ import 'package:flutter_bili_app/widget/dark_model_item.dart';
 import 'package:flutter_bili_app/widget/hi_banner.dart';
 import 'package:flutter_bili_app/widget/hi_blur.dart';
 import 'package:flutter_bili_app/widget/hi_flexible_header.dart';
+import 'package:hi_net/core/hi_error.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

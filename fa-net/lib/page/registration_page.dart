@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bili_app/http/core/hi_error.dart';
+// import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/login_dao.dart';
 import 'package:flutter_bili_app/util/string_util.dart';
 import 'package:flutter_bili_app/util/toast.dart';
@@ -7,6 +7,7 @@ import 'package:flutter_bili_app/widget/appbar.dart';
 import 'package:flutter_bili_app/widget/login_button.dart';
 import 'package:flutter_bili_app/widget/login_effect.dart';
 import 'package:flutter_bili_app/widget/login_input.dart';
+import 'package:hi_net/core/hi_error.dart';
 
 class RegistrationPage extends StatefulWidget {
   final VoidCallback onJumpToLogin;

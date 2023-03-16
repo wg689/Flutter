@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/db/hi_cache.dart';
-import 'package:flutter_bili_app/http/core/hi_error.dart';
+
+// import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/login_dao.dart';
 import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/navigator/bottom_navigator.dart';
@@ -19,9 +20,11 @@ import 'package:flutter_bili_app/util/color.dart';
 import 'package:flutter_bili_app/util/toast.dart';
 import 'dart:convert';
 import 'package:flutter_bili_app/model/video_model.dart';
+import 'package:hi_net/core/hi_error.dart';
 import 'package:provider/provider.dart';
 
-import 'http/core/hi_net.dart';
+import 'package:hi_net/hi_net.dart';
+
 import 'model/video_model.dart';
 
 void main() {

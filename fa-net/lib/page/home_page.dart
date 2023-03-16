@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide NavigationBar;
-import 'package:flutter_bili_app/http/core/hi_state.dart';
-import 'package:flutter_bili_app/http/core/hi_error.dart';
+// import 'package:flutter_bili_app/http/core/hi_state.dart';
+// import 'package:flutter_bili_app/http/core/hi_error.dart';
 import 'package:flutter_bili_app/http/dao/home_dao.dart';
 import 'package:flutter_bili_app/model/home_mo.dart';
 import 'package:flutter_bili_app/navigator/hi_navigator.dart';
@@ -17,6 +17,8 @@ import 'package:underline_indicator/underline_indicator.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_bili_app/provider/theme_provider.dart';
+import 'package:hi_net/core/hi_error.dart';
+import 'package:hi_net/core/hi_state.dart';
 
 class HomePage extends StatefulWidget {
   final ValueChanged<int> onJumpTo;
