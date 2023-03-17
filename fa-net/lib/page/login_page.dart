@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         // ignore: sdk_version_constructor_tearoffs
         context.read<ThemeProvider>().setTheme(ThemeMode.dark);
         HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
-      }),
+      }, key: "registration"),
       body: Container(
         child: ListView(
           children: [

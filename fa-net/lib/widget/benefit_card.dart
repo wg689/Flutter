@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/model/profile_mo.dart';
 import 'package:flutter_bili_app/util/view_util.dart';

@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/util/view_util.dart';
 
-appBar(String title, String rightTitle, VoidCallback rightButtonClick) {
+appBar(String title, String rightTitle, VoidCallback rightButtonClick,
+    {String key}) {
   return AppBar(
     centerTitle: false,
     titleSpacing: 0,

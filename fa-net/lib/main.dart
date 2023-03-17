@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bili_app/db/hi_cache.dart';
 
@@ -28,7 +30,9 @@ import 'package:hi_net/hi_net.dart';
 import 'model/video_model.dart';
 
 void main() {
-  runApp(BiliApp());
+  runZonedGuarded(() {
+    runApp(BiliApp());
+  }, (e, s) => print(e));
 }
 
 class BiliApp extends StatefulWidget {

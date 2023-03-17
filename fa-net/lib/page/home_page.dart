@@ -208,10 +208,14 @@ class _HomePageState extends HiState<HomePage>
               ),
             ),
           )),
-          Icon(
-            Icons.explore_outlined,
-            color: Colors.grey,
-          ),
+          InkWell(
+              onTap: () {
+                _mockCrash();
+              },
+              child: Icon(
+                Icons.explore_outlined,
+                color: Colors.grey,
+              )),
           Padding(
             padding: EdgeInsets.only(left: 12),
             child: Icon(
@@ -222,5 +226,21 @@ class _HomePageState extends HiState<HomePage>
         ],
       ),
     );
+  }
+
+  void _mockCrash() async {
+    try {
+      throw StateError('this a exception');
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      await Future.delayed(Duration(seconds: 1))
+          .then((value) => throw StateError('this a exception 3'))
+          .catchError((e) => print(e));
+    } catch (e) {
+      print(e);
+    }
   }
 }
